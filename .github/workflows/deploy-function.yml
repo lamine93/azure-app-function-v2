@@ -23,4 +23,4 @@ jobs:
           package: 'pipeline-func'  # dossier avec host.json
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISHPROFILE }}
     env:
-      FUNC_APP_NAME: <ton_function_app_name>   # terraform output -raw function_app_name
+      FUNC_APP_NAME: functionapp-func-ec49fb   # terraform output -raw function_app_name
