@@ -38,7 +38,7 @@ def main(event: func.EventGridEvent) -> None:
 
     # Write to curated/ same path with .parquet (or .csv)
     curated_client = bsc.get_blob_client(
-        container="curated",
+        container="incoming-ec49fb",
         blob=blob_name.rsplit(".", 1)[0] + ".parquet"
     )
     out = io.BytesIO()
@@ -48,7 +48,7 @@ def main(event: func.EventGridEvent) -> None:
 
     # Log a small JSON record
     log_client = bsc.get_blob_client(
-        container="logs",
+        container="logs-ec49fb",
         blob=datetime.datetime.utcnow().strftime("%Y/%m/%d/%H%M%S") + f"_{event.id}.json"
     )
     log_payload = {
