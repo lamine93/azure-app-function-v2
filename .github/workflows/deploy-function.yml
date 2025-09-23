@@ -1,0 +1,26 @@
+name: Deploy Data Pipeline Function
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'pipeline-func/**'
+      - '.github/workflows/deploy-function.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install func tools
+        run: npm i -g azure-functions-core-tools@4 --unsafe-perm true
+      - name: Deploy
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.FUNC_APP_NAME }}
+          package: 'pipeline-func'  # dossier avec host.json
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISHPROFILE }}
+    env:
+      FUNC_APP_NAME: <ton_function_app_name>   # terraform output -raw function_app_name
